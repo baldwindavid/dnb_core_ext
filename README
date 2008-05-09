@@ -1,13 +1,75 @@
 DnbCoreExt
 ==========
 
-Introduction goes here.
+Extensions to String and Hash
+
+-------------------------------------------------------
+HASH METHODS
+
+Hash.classed_values
+  Note: this method relies upon the string methods below
+
+  This takes a hash with keys that are either strings or symbols and values that are either strings or hashes.
+
+  It iterates through the hash and converts all keys to :symbols and all values to their appropriate class value (Integer, Float, String, TrueClass, FalseClass)
+
+  This allows you to take a bunch of POST data that has converted all of your numbers, true, false, etc. to strings and turn it back into the appropriate classed value.
 
 
-Example
-=======
+  example
+  ---------------------
 
-Example goes here.
+   test_hash = { 
+     :pet => 'dog', 
+     :name => 'Fido', 
+     :state => 'Indiana', 
+     'is_trained?' => 'false', 
+     'is_old?' => 'true', 
+     'how_old?' => '7',
+     'some_num' => '4.355',
+     'extras' => {
+       :usage => 'document',
+       'town' => 'Indianapolis',
+       'pi' => '3.14',
+       :new_record => 'true',
+       'other_stuff' => {
+           'color' => 'brown',
+           :vehicle => 'truck',
+           'year' => '1942',
+           'another_decimal' => '9.81',
+           :good => 'true'
+         }
+       }
+     }
+
+   puts string_to_classed_value(test_hash).inspect
+
+   OUTPUT 
+   { :some_num=>4.355, :extras=>{ :new_record=>true, :usage=>"document", :pi=>3.14, :town=>"Indianapolis", :other_stuff=>{:good?=>true, :vehicle=>"truck", :another_decimal=>9.81, :color=>"brown", :year=>1942}}, :name=>"Fido", :pet=>"dog", :is_old?=>true, :state=>"Indiana", :how_old?=>7, :is_trained?=>false }
+-------------------------------------------------------------
 
 
-Copyright (c) 2008 [name of plugin creator], released under the MIT license
+
+
+-------------------------------------------------------
+STRING METHODS
+
+String.represents_i?
+  Returns boolean value of whether the given string represents an integer.
+  '27'.represents_i? = true
+  '27.3'.represents_i? = false
+  'dog'.represents_i? = false
+
+
+String.represents_f?
+  Returns boolean value of whether the given string represents a float.
+  '27'.represents_f? = false
+  '27.3'.represents_f? = true
+  'dog'.represents_f? = false
+
+-------------------------------------------------------------
+
+
+
+
+Copyright (c) 2008 David Baldwin, released under the MIT license

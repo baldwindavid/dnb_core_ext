@@ -30,9 +30,14 @@ String.class_eval do
   # Does this value represent an integer?
   def represents_i?
     i_value = self.to_i
-    # is the string converted to int greater than 0?
+    # is the string converted to int not equal to zero (because it might be a string)
     if i_value != 0
-      true
+      # are we sure this isn't actually a float
+      if (i_value - self.to_f) == 0
+        true
+      else
+        false
+      end
     elsif i_value == 0
       # is the value equal to the int value converted to_s?
       if self == i_value.to_s
