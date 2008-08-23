@@ -33,18 +33,10 @@ String.class_eval do
     # is the string converted to int not equal to zero (because it might be a string)
     if i_value != 0
       # are we sure this isn't actually a float?
-      if (i_value - self.to_f) == 0
-        true
-      else
-        false
-      end
+      return (i_value - self.to_f) == 0
     elsif i_value == 0
       # is the value equal to the int value converted to_s?
-      if self == i_value.to_s
-        true
-      else
-        false
-      end
+      return self == i_value.to_s
     end
   end
 
@@ -52,11 +44,7 @@ String.class_eval do
   def represents_f?
     f_value = self.to_f
     # is this not equal to zero and also not actually an integer?
-    if (f_value != 0) && (f_value.to_s == self)
-      true
-    else
-      false
-    end
+    return (f_value != 0) && (f_value.to_s == self)
   end
   
 end
