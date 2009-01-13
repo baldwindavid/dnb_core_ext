@@ -1,5 +1,4 @@
-Hash.class_eval do
-          
+class Hash
   def classed_values
     new_opts = {}
 
@@ -25,8 +24,7 @@ Hash.class_eval do
 end
 
 
-String.class_eval do
-
+class String
   # Does this value represent an integer?
   def represents_i?
     i_value = self.to_i
