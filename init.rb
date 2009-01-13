@@ -4,20 +4,14 @@ class Hash
 
     each do |k,v|
       new_opts[k.to_sym] = 
-        if v.boolean?
-          v.to_b
-        elsif v.class == Hash
-          v.classed_values
-        elsif v.float?
-          v.to_f
-        elsif v.integer?
-          v.to_i
+        if v.is_a?(Hash)
+          classed_values(v)
         else
-          v
+          v.float? || v.integer? || (v.boolean? && v.to_b) || v
         end
     end
 
-    return new_opts
+    new_opts
   end
 
 end
@@ -25,11 +19,15 @@ end
 
 class String
   def integer?
-    to_i.to_s == self
+    (value = to_i).to_s == self && value
   end
 
   def float?
-    to_f.to_s == self
+    (value = to_f).to_s == self && value
+  end
+
+  def boolean?
+    to_b.to_s == self
   end
   
   def to_b
@@ -40,8 +38,5 @@ class String
     end
   end
   
-  def boolean?
-    to_b.to_s == self
-  end
   
 end
