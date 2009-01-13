@@ -2,7 +2,7 @@ class Hash
   def classed_values
     new_opts = {}
 
-    each do |k,v|
+    each do |k, v|
       new_opts[k.to_sym] = 
         if v.is_a?(Hash)
           classed_values(v)
@@ -19,7 +19,11 @@ end
 
 class String
   def to_proper_class
-    float? || integer? || (boolean? && to_b) || self
+    if boolean?
+      to_b
+    else
+      float? || integer? || self
+    end
   end
   
   def integer?
