@@ -7,7 +7,7 @@ class Hash
         if v.is_a?(Hash)
           classed_values(v)
         else
-          v.float? || v.integer? || (v.boolean? && v.to_b) || v
+          v.to_proper_class
         end
     end
 
@@ -18,6 +18,10 @@ end
 
 
 class String
+  def to_proper_class
+    float? || integer? || (boolean? && to_b) || self
+  end
+  
   def integer?
     (value = to_i).to_s == self && value
   end
