@@ -3,19 +3,20 @@ class Hash
     new_opts = {}
 
     each do |k,v|
-      if v == 'true'
-        new_opts[k.to_sym] = true
-      elsif v == 'false'
-        new_opts[k.to_sym] = false
-      elsif v.class == Hash
-        new_opts[k.to_sym] = v.classed_values
-      elsif v.represents_f?
-        new_opts[k.to_sym] = v.to_f
-      elsif v.represents_i?
-        new_opts[k.to_sym] = v.to_i
-      else
-        new_opts[k.to_sym] = v
-      end
+      new_opts[k.to_sym] = 
+        if v == 'true'
+          true
+        elsif v == 'false'
+          false
+        elsif v.class == Hash
+          v.classed_values
+        elsif v.represents_f?
+          v.to_f
+        elsif v.represents_i?
+          v.to_i
+        else
+          v
+        end
     end
 
     return new_opts
