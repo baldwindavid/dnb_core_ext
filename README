@@ -42,7 +42,7 @@ Hash.classed_values
        }
      }
 
-   puts string_to_classed_value(test_hash).inspect
+   puts test_hash.classed_values.inspect
 
    OUTPUT 
    { :some_num=>4.355, :extras=>{ :new_record=>true, :usage=>"document", :pi=>3.14, :town=>"Indianapolis", :other_stuff=>{:good?=>true, :vehicle=>"truck", :another_decimal=>9.81, :color=>"brown", :year=>1942}}, :name=>"Fido", :pet=>"dog", :is_old?=>true, :state=>"Indiana", :how_old?=>7, :is_trained?=>false }
