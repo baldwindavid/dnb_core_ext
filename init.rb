@@ -1,17 +1,15 @@
 class Hash
   def classed_values
-    new_opts = {}
-
-    each do |k, v|
-      new_opts[k.to_sym] = 
-        if v.is_a?(Hash)
-          classed_values(v)
+    inject({}) do |memo, values|
+      key, value = values
+      memo[key.to_sym] = 
+        if value.is_a?(Hash)
+          classed_values(value)
         else
-          v.to_proper_class
+          value.to_proper_class
         end
+      memo
     end
-
-    new_opts
   end
 
 end
