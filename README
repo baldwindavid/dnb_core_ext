@@ -1,12 +1,12 @@
-DnbCoreExt
+ToProperClass
 ==========
 
-Extensions to String and Hash
+Extensions to Hash, Array and String
 
 -------------------------------------------------------
 HASH METHODS
 
-Hash.classed_values
+`Hash.values_to_proper_class`
   Note: this method relies upon the string methods below
 
   This takes a hash with keys that are either strings or symbols and values that are either strings or hashes.
@@ -14,6 +14,8 @@ Hash.classed_values
   It iterates through the hash and converts all keys to :symbols and all values to their appropriate class value (Integer, Float, String, TrueClass, FalseClass)
 
   This allows you to take a bunch of POST data that has converted all of your numbers, true, false, etc. to strings and turn it back into the appropriate classed value.
+  
+
 
 
   example
@@ -54,22 +56,28 @@ Hash.classed_values
 -------------------------------------------------------
 STRING METHODS
 
-String.represents_i?
+String.integer?
   Returns boolean value of whether the given string represents an integer.
-  '27'.represents_i? = true
-  '27.3'.represents_i? = false
-  'dog'.represents_i? = false
+  '27'.integer? = true
+  '27.3'.integer? = false
+  'dog'.integer? = false
 
 
-String.represents_f?
+String.float?
   Returns boolean value of whether the given string represents a float.
-  '27'.represents_f? = false
-  '27.3'.represents_f? = true
-  'dog'.represents_f? = false
+  '27'.float? = false
+  '27.3'.float? = true
+  'dog'.float? = false
+  
+String.boolean?
+  Returns boolean value of whether the given string represents a boolean value.
+  'false'.boolean? = true
+  'true'.boolean? = true
+  'dog'.boolean? = false
 
 -------------------------------------------------------------
 
 
 
 
-Copyright (c) 2008 David Baldwin, released under the MIT license
+Copyright (c) 2008 David Baldwin (github.com/bilson), Elijah Miller (github.com/jqr) & Kristopher Chambers (github.com/kristopher), released under the MIT license

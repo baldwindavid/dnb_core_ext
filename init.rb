@@ -1,12 +1,10 @@
 class Array
   
-  def values_to_proper_class
+  def values_to_proper_class(symbolize_keys = true)
     inject([]) do |memo, value|     
       memo << 
-        if value.is_a?(Hash)
-          value.values_to_proper_class
-        elsif value.is_a?(Array)
-          value.values_to_proper_class
+        if [Array, Hash].include? value.class
+          value.values_to_proper_class(symbolize_keys)
         else
           value.to_proper_class
         end
@@ -15,57 +13,60 @@ class Array
   
 end
 
+
 class Hash
-  def values_to_proper_class
+  
+  def values_to_proper_class(symbolize_keys = true)
     inject({}) do |memo, values|
       key, value = values
-      memo[key.to_sym] = 
-        if value.is_a?(Hash)
-          value.values_to_proper_class
-        elsif value.is_a?(Array)
-          value.values_to_proper_class
+      key = symbolize_keys ? key.to_sym : key.to_s
+      memo[key] = 
+        if [Array, Hash].include? value.class
+          value.values_to_proper_class(symbolize_keys)
         else
           value.to_proper_class
         end
       memo
     end
   end
-  
-  def values_to_proper_class!
-    
-  end
 
 end
 
 
 class String
+  
   def to_proper_class
     if boolean?
       to_b
+    elsif float?
+      to_f
+    elsif integer?
+      to_i
     else
-      float? || integer? || self
+      self
     end
   end
   
+  # Does this value represent an integer?
   def integer?
-    (value = to_i).to_s == self && value
+    to_i.to_s == self
   end
-
+  
+  # Does this value represent a float?
   def float?
-    (value = to_f).to_s == self && value
-  end
+    to_f.to_s == self
+  end 
 
   def boolean?
     to_b.to_s == self
   end
   
   def to_b
-    if self == 'true' 
+    if self == 'true'
       true
     elsif self == 'false'
       false
     end
   end
-  
   
 end
