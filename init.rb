@@ -1,15 +1,38 @@
+class Array
+  
+  def values_to_proper_class
+    inject([]) do |memo, value|     
+      memo << 
+        if value.is_a?(Hash)
+          value.values_to_proper_class
+        elsif value.is_a?(Array)
+          value.values_to_proper_class
+        else
+          value.to_proper_class
+        end
+    end
+  end
+  
+end
+
 class Hash
-  def classed_values
+  def values_to_proper_class
     inject({}) do |memo, values|
       key, value = values
       memo[key.to_sym] = 
         if value.is_a?(Hash)
-          classed_values(value)
+          value.values_to_proper_class
+        elsif value.is_a?(Array)
+          value.values_to_proper_class
         else
           value.to_proper_class
         end
       memo
     end
+  end
+  
+  def values_to_proper_class!
+    
   end
 
 end
